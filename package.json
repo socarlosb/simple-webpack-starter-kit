@@ -1,0 +1,31 @@
+{
+  "name": "simple-webpack-starter-kit",
+  "version": "1.0.0",
+  "description": "A simple webpack starter-kit for web development.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/socarlosb/simple-webpack-starter-kit.git"
+  },
+  "keywords": [
+    "simple",
+    "webpack",
+    "html",
+    "scss",
+    "javascript",
+    "import",
+    "es6",
+    "minify",
+    "tree",
+    "shaking"
+  ],
+  "author": "socarlosb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/socarlosb/simple-webpack-starter-kit/issues"
+  },
+  "homepage": "https://github.com/socarlosb/simple-webpack-starter-kit#readme"
+}
