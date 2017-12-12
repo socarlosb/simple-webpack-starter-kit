@@ -1,4 +1,5 @@
-var style = require('./scss/styles.css');
+// var styles = require('./scss/styles.css');
+import './scss/styles.scss';
 
 // comonjs import sintax
 var messages = require('./messages');
@@ -12,7 +13,7 @@ var messages = require('./messages');
 
 
 const newMessage = () => (`
-<div class='${style.box}'>
+<div class='${styles.box}'>
 DEV: ${DEVELOPMENT.toString()}<br>
 PROD: ${PRODUCTION.toString()}<br>
 Hello<br>

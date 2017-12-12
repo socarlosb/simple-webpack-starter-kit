@@ -27,7 +27,11 @@ It does tree shaking by:
 - 3rd if conditions are always false the code will not be in the bundle.js (cause they will never execute)
 - 4th unused modules code will not be part of the bundle.js file (cool)
 - [x] css-loader - so that webpack can read css files (in the javascript file!)
-- [x] style-loader - so that webpack can add the css file on my html file
+- [x] style-loader - so that webpack can add the css file on the html head file
+- [x] extract-text-webpack-plugin - to extract my css code to a separated file, for production
+- [x] sass-loader - translate scss to css
+- [x] node-sass - for webpack to know css!
+
 ## Sources
 [Webpack Documentation](https://webpack.js.org/concepts/)
 [Webpack 2 - A full tutorial (4 Nov 2016)](https://www.youtube.com/watch?v=eWmkBNBTbMM&t=2323s)
@@ -49,10 +53,7 @@ When doing `npm install 'something' --save-dev`, use `-D` instead of `--save-dev
 
   new UglifyJsPlugin({
     uglifyOptions: {
-      mangle: {
-        false
-      },
-
+      mangle: false,
       output: {
         comments: true
       },
