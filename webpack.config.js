@@ -29,6 +29,9 @@ plugins.push(
     PRODUCTION: JSON.stringify(PRODUCTION),
   })
 );
+
+const cssIdentifier = PRODUCTION ? '[hash:base64:10]' : '[path][name]---[local]';
+
 module.exports = {
   devtool: 'source-map',
   entry: entry,
@@ -47,7 +50,7 @@ module.exports = {
     loaders: [{
       test: /\.css$/,
       exclude: /node_modules/,
-      loader: ['style-loader', 'css-loader']
+      loader: ['style-loader', 'css-loader?localIdentName=' + cssIdentifier]
     }]
   },
   output: {
