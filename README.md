@@ -40,7 +40,7 @@ When doing `npm install 'something' --save-dev`, use `-D` instead of `--save-dev
 
 
 
-## JUNK
+## JUNK TO DELETE
       options: {
         limit: 10000,
         fallback: 'file-loader'
