@@ -5,7 +5,7 @@
 - [x] Install webpack
 - [x] Test JS Modules
 - [x] Browser live auto reload > hot module replacement
-- [ ] scss compiler
+- [x] scss compiler
 - [x] add source maps (for better debug in browser dev tools)
 - [x] babel (es6) compiler
 - [ ] ./src/ folder structure
@@ -19,7 +19,10 @@
 - [x] babel - to understand and compile new javascript sintax and features(our bundle.js will now be in good old javascript sintax, and can run on Internet Explorer!)
 - [x] file-loader - so that webpack can handle other type of files (besides javascript files)
 - [x] url-loader - so that webpack push url as data (instead of a link to a file, which makes an http call, which makes it slower... not sure!)
-- [x] uglifyjs-webpack-plugin - (read documentation for changes) it 'cleans' the bundle.js file
+- [x] uglifyjs-webpack-plugin - (read documentation for changes) it 'cleans' the bundle.js file! (NOTE: this 'guy' is a beast, I had some problems with sourcemaps because of this guy, but to simplify we just need to add in the webpack modules.export the `devtools: "sourcemap"` flag and also add `sourceMap: true` to the plugin options, when the plugin is indicated, more info [here](https://github.com/webpack/webpack/issues/2704))
+- [ ] image-webpack-loader -
+
+
 **IMPORTANT NOTES**
 It does tree shaking by:
 - 1st don't transpile modules with babel (check .babelrc file - modules: false)
@@ -34,7 +37,9 @@ It does tree shaking by:
 
 ## Sources
 [Webpack Documentation](https://webpack.js.org/concepts/)
+
 [Webpack 2 - A full tutorial (4 Nov 2016)](https://www.youtube.com/watch?v=eWmkBNBTbMM&t=2323s)
+
 [Academind Webpack 2 Tutorial List](https://www.youtube.com/watch?v=GU-2T7k9NfI&list=PL55RiY5tL51rcCnrOrZixuOsZhAHHy6os)
 
 
@@ -42,21 +47,25 @@ It does tree shaking by:
 When doing `npm install 'something'`, use `i` instead of `install`.
 When doing `npm install 'something' --save-dev`, use `-D` instead of `--save-dev`.
 
+Basically use `npm i -D webpack`
+
 
 
 ## JUNK TO DELETE
-      options: {
-        limit: 10000,
-        fallback: 'file-loader'
-      }
 
-
-  new UglifyJsPlugin({
-    uglifyOptions: {
-      mangle: false,
-      output: {
-        comments: true
-      },
-      warnings: true
+    options: {
+      limit: 10000,
+      fallback: 'file-loader'
     }
-  })
+
+//
+
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        mangle: false,
+        output: {
+          comments: true
+        },
+        warnings: true
+      }
+    })

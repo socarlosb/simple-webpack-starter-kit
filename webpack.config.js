@@ -1,70 +1,75 @@
 const path = require('path');
-const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-// const extractPlugin = new ExtractTextPlugin({
-//   filename: 'main.css'
-// });
-
-const DEVELOPMENT = process.env.NODE_ENV === 'development';
-const PRODUCTION = process.env.NODE_ENV === 'production';
-
-const entry = PRODUCTION ? ['./src/index.js'] : [
-  './src/index.js',
-  'webpack/hot/dev-server',
-  'webpack-dev-server/client?http://localhost:8080'
-];
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const extractPlugin = new ExtractTextPlugin({
-  filename: 'main.css'
+  filename: 'css/styles.css'
 });
 
-const plugins = PRODUCTION ? [
-  new UglifyJsPlugin(),
-  extractPlugin
-] : [
-  new webpack.HotModuleReplacementPlugin()
-];
-
-plugins.push(
-  new webpack.DefinePlugin({
-    DEVELOPMENT: JSON.stringify(DEVELOPMENT),
-    PRODUCTION: JSON.stringify(PRODUCTION),
-  })
-);
-
-const cssIdentifier = PRODUCTION ? '[hash:base64:10]' : '[path][name]---[local]';
-
-const cssLoader = PRODUCTION ?
-  extractPlugin.extract({
-    use: ['css-loader', 'sass-loader']
-  }) : ['style-loader', 'css-loader?localIdentName=' + cssIdentifier];
-
 module.exports = {
-  devtool: 'source-map',
-  entry: entry,
-  plugins: plugins,
-  module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loaders: "babel-loader"
-    }],
-    loaders: [{
-      test: /\.(jpg|png|gif)$/,
-      exclude: /node_modules/,
-      loaders: ["url-loader?limit=10000&name=images/[name].[ext]"]
-    }],
-    loaders: [{
-      test: /\.scss$/,
-      exclude: /node_modules/,
-      loaders: cssLoader
-    }]
-  },
+  devtool: "source-map",
+  entry: './src/js/app.js',
   output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/dist/',
-    filename: 'bundle.js'
-  }
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'js/bundle.js',
+  },
+  module: {
+    rules: [{
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+        options: {
+          "presets": [
+            ["env", {
+              "modules": false
+            }]
+          ]
+        }
+      },
+      {
+        test: /\.scss$/,
+        use: extractPlugin.extract({
+          fallback: 'style-loader',
+          use: [{
+            loader: 'css-loader',
+            options: {
+              // sourceMap: true
+            }
+          }, {
+            loader: 'sass-loader',
+            options: {
+              // sourceMap: true
+            }
+          }]
+        })
+      },
+      {
+        test: /\.html$/,
+        use: ['html-loader']
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'img/'
+          }
+        }]
+      },
+
+    ]
+  },
+  plugins: [
+    extractPlugin,
+    new UglifyJsPlugin({
+      sourceMap: true
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    }),
+    new CleanWebpackPlugin(['dist'])
+  ]
 };
