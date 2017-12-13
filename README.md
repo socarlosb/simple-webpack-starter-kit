@@ -13,14 +13,14 @@
 - [x] tree shaking
 ## devDependencies
 - [x] webpack - really?!
-- [x] rimraf - to delete files before creating a new one (clean slate)
-- [x] webpack-dev-server - for hot module replacemente (updates your live browser without reloading! Also created dev-server.js file) (also use environment variabels here to not bundle any hot module code for production)
-~~- [x] cross-env - Having some problems seeting NODE_ENV variables to development or prouction, can this correct this behavior?~~
+- [x] clean-webpack-plugin - to delete files before creating a new one (clean slate)
+- [x] webpack-dev-server - for hot module replacemente (updates your live browser without reloading - for css only sadly!!!)
+- [x] cross-env - Having some problems setting NODE_ENV variables to development or production, this correct for windos and mac users.
 - [x] babel - to understand and compile new javascript sintax and features(our bundle.js will now be in good old javascript sintax, and can run on Internet Explorer!)
 - [x] file-loader - so that webpack can handle other type of files (besides javascript files)
 - [x] url-loader - so that webpack push url as data (instead of a link to a file, which makes an http call, which makes it slower... not sure!)
 - [x] uglifyjs-webpack-plugin - (read documentation for changes) it 'cleans' the bundle.js file! (NOTE: this 'guy' is a beast, I had some problems with sourcemaps because of this guy, but to simplify we just need to add in the webpack modules.export the `devtools: "sourcemap"` flag and also add `sourceMap: true` to the plugin options, when the plugin is indicated, more info [here](https://github.com/webpack/webpack/issues/2704))
-- [ ] image-webpack-loader -
+- [x] image-webpack-loader - to make images smaller (cool)
 
 
 **IMPORTANT NOTES**
@@ -41,6 +41,8 @@ It does tree shaking by:
 [Webpack 2 - A full tutorial (4 Nov 2016)](https://www.youtube.com/watch?v=eWmkBNBTbMM&t=2323s)
 
 [Academind Webpack 2 Tutorial List](https://www.youtube.com/watch?v=GU-2T7k9NfI&list=PL55RiY5tL51rcCnrOrZixuOsZhAHHy6os)
+
+[Ihatetomatoes Webpack 2 Tutorial](https://www.youtube.com/watch?v=JdGnYNtuEtE&list=PLkEZWD8wbltnRp6nRR8kv97RbpcUdNawY)
 
 
 ## Tricks
@@ -69,3 +71,16 @@ Basically use `npm i -D webpack`
         warnings: true
       }
     })
+
+//
+
+    {
+      test: /\.(png|jpe?g|gif)$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'img/'
+        }
+      }]
+    },
