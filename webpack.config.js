@@ -12,17 +12,10 @@ var isProd = process.env.NODE_ENV === 'production' // true or false
 var cssDev = ['style-loader', 'css-loader', 'sass-loader']
 var cssProd = ExtractTextPlugin.extract({
   fallback: 'style-loader',
-
   use: [{
     loader: 'css-loader',
-    options: {
-      // sourceMap: true
-    }
   }, {
     loader: 'sass-loader',
-    options: {
-      // sourceMap: true
-    }
   }],
   publicPath: '/dist'
 })
@@ -68,13 +61,11 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
-    // compress: true,
     stats: "errors-only",
     open: true,
     hot: true
   },
   plugins: [
-    // extractPlugin,
     new ExtractTextPlugin({
       filename: 'css/styles.css',
       disable: !isProd,
