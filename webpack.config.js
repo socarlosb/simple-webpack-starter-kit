@@ -81,15 +81,7 @@ module.exports = {
       allChunks: true
     }),
     new UglifyJsPlugin({
-      sourceMap: true,
-      uglifyOptions: {
-        mangle: {
-          keep_fnames: true
-        },
-        output: {
-          beautify: true
-        }
-      }
+      sourceMap: true
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
